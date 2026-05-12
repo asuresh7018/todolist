@@ -1,0 +1,51 @@
+This brainstorm file indicates the design direction of the project objects.
+It includes intended json storage structure and object class properties and functions.
+
+--------------
+
+const projects = []
+  - Stores the todoList object
+
+Project object
+
+{
+	"projects": [
+		"id": ..., (NOT WRITTEN TO JSON)
+		"name": ...,
+		"description": ...,
+		"todoList": [
+			{TodoItem1},{TodoItem2} ..
+		]
+	]
+}
+
+TodoItem object
+
+{
+	"id": ..., (NOT WRITTEN TO JSON)
+	"title": ...,
+	"description": ...,
+	"dueDate": ...,
+	"priority": ...,
+	"notes": ...
+}
+
+Project class
+
+Constructor(name, description)
+project.id - get
+project.name - get, set
+project.description - get, set
+project.todolist - get
+project.addTodoList()
+project.RemoveTodoListById()
+
+TodoItem class
+
+Constructor(name, title, description, dueDate, priority, notes)
+todoitem.id - get
+todoitem.name - get, set
+todoitem.description - get, set
+todoitem.dueDate - get, set
+todoitem.priority - get, set
+todoitem.notes - get, set
