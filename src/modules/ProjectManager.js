@@ -1,6 +1,7 @@
 import LocalStorage from "localstorage";
 
 // **The IIFE object that manages the page project data object
+// initStorage: Determine if stored local data exists and create it if not
 // getProjectStorage: Provide copy of storage object with local storage data
 // initProjectObject: Constructs project object from local storage
 // getProjectObject: Provides copy of current project object
@@ -38,33 +39,55 @@ const ProjectManager = (() => {
 
     const createTodoArray = (todoJson) => {
         const returnValue = [];
-        if (JSON.stringify(todoJson) !== "[]") {
-            for (const todo of todoJson) {
-            returnValue.push({
-                "id": crypto.randomUUID(),
-                "title": todo["title"], 
-                "description": todo["description"],
-                "dueDate": todo["dueDate"],
-                "priority": todo["priority"],
-                "notes": todo["notes"]})
-            }
+        for (const todo of todoJson) {
+        returnValue.push({
+            "id": crypto.randomUUID(),
+            "title": todo["title"], 
+            "description": todo["description"],
+            "dueDate": todo["dueDate"],
+            "priority": todo["priority"],
+            "notes": todo["notes"]})
         }
         
         return returnValue;
+    }
+
+    const initStorage = () => {
+        if (String(projectStorage.get("Data")[0]).includes("Error")) {
+            console.log("No project data found. Initialising default project");
+            projectStorage.put("Data", 
+            `{
+            "projects": [
+                {
+                    "name": "Default Project",
+                    "description": "Default project description",
+                    "todoList": [
+                        {
+                        "title": "Sample Todo",
+                        "description": "Description Sample",
+                        "dueDate": "Sample due date",
+                        "priority": "Sample priority",
+                        "notes": "Sample notes"
+                        }
+                    ]
+                }
+            ]
+            }`);
+        }
     }
 
     const writeToStorage = () => {
         projectStorage.put("Data", `{"projects": [${JSON.stringify(projects)}]}`);
     }
 
-    const addTodoToProjectById = (id) => {
+    const addTodoToProjectById = (id, todoItem) => {
         // Do stuff. TODO
-        // Probably need to pass in form data. It should return the generated object
+        // Should accept a TodoItem object
     }
 
-    const addProject = () => {
+    const addProject = (project) => {
         // Do stuff. TODO
-        // Probably need to pass in form data. It should return the generated object
+        // Should accept a Project object
     }
 
     const deleteProjectById = (id) => {
@@ -81,7 +104,7 @@ const ProjectManager = (() => {
         writeToStorage();
     }
 
-    return { getProjectStorage, initProjectObject, getProjectObject, writeToStorage, addTodoToProjectById, addProject, deleteProjectById, deleteTodoById };
+    return { initStorage, getProjectStorage, initProjectObject, getProjectObject, writeToStorage, addTodoToProjectById, addProject, deleteProjectById, deleteTodoById };
 })();
 
 export default ProjectManager;
