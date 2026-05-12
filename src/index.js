@@ -1,17 +1,8 @@
 import LocalStorage from "localstorage";
-
-const Project = (() => {
-    const projectList = new LocalStorage("projectList");
-
-    const getProjectList = function() {
-        return projectList;
-    }
-
-    return { getProjectList };
-})();
+import Project from "./modules/Project.js";
 
 function initStorage() {
-    const projectList = Project.getProjectList();
+    const projectList = Project.getProjectStorage();
     if (String(projectList.get("Data")[0]).includes("Error")) {
         console.log("No project data found. Initialising default project");
         projectList.put("Data", 
@@ -21,6 +12,13 @@ function initStorage() {
 		        "name": "Default Project",
 		        "description": "Default project description",
 		        "todoList": [
+                    {
+	                "title": "Sample Todo",
+	                "description": "Description Sample",
+	                "dueDate": "Sample due date",
+	                "priority": "Sample priority",
+	                "notes": "Sample notes"
+                    }
 		        ]
             }
 	    ]
@@ -29,3 +27,5 @@ function initStorage() {
 }
 
 initStorage();
+Project.initProjectObject();
+console.log(Project.getProjectObject());
