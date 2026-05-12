@@ -1,11 +1,11 @@
 import LocalStorage from "localstorage";
-import Project from "./modules/Project.js";
+import ProjectManager from "./modules/ProjectManager.js";
 
 function initStorage() {
-    const projectList = Project.getProjectStorage();
-    if (String(projectList.get("Data")[0]).includes("Error")) {
+    const projectStorage = ProjectManager.getProjectStorage();
+    if (String(projectStorage.get("Data")[0]).includes("Error")) {
         console.log("No project data found. Initialising default project");
-        projectList.put("Data", 
+        projectStorage.put("Data", 
         `{
 	    "projects": [
             {
@@ -27,5 +27,4 @@ function initStorage() {
 }
 
 initStorage();
-Project.initProjectObject();
-console.log(Project.getProjectObject());
+ProjectManager.initProjectObject();
