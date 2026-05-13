@@ -1,5 +1,7 @@
 import LocalStorage from "localstorage";
 
+// BIG TODO: Project array should actually be an array of Project objects
+
 // **The IIFE object that manages the page project data object
 // initStorage: Determine if stored local data exists and create it if not
 // getProjectStorage: Provide copy of storage object with local storage data

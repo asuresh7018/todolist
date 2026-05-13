@@ -1,21 +1,57 @@
-// Please complete the Project class and its properties
-// Should generate a random id when created
+import TodoItem from "./TodoItem.js";
 
 class Project {
-    constructor() {
-        this.param = "";
+    constructor(id, name, description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.todoList = [];
     }
 
-    someMethod() {
+    removeTodoById(id) {
+        this.todoList = this.todoList.filter(todoItem => todoItem.id !== id);
+    }
 
+    addTodoItem(todoItem) {
+        this.todoList.push(todoItem);
+    }
+
+    toJson() {
+        let jsonString = `
+                {
+                    "name": "${this.name}",
+                    "description": "${this.description}}",
+                    "todoList": []
+                }`;
+        let parsedJson = JSON.parse(jsonString);
+        for (const todoItem of this.todoList) {
+            parsedJson["todoList"].push(todoItem.toJson());
+        }
+        return parsedJson;
     }
     
-    get someProperty() {
-        return this.param;
+    get id() {
+        return this.id;
     }
 
-    set someProperty(value) {
-        this.param = "";
+    get name() {
+        return this.name;
+    }
+
+    set name(value) {
+        this.name = value;
+    }
+
+    get description() {
+        return this.description;
+    }
+
+    set description(value) {
+        this.description = value;
+    }
+
+    get todoList() {
+        return this.todoList;
     }
 }
 
