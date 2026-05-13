@@ -2,10 +2,10 @@ import TodoItem from "./TodoItem.js";
 
 class Project {
     constructor(id, name, description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.todoList = [];
+        this._id = id;
+        this._name = name;
+        this._description = description;
+        this._todoList = [];
     }
 
     removeTodoById(id) {
@@ -19,8 +19,8 @@ class Project {
     toJson() {
         let jsonString = `
                 {
-                    "name": "${this.name}",
-                    "description": "${this.description}}",
+                    "name": "${this._name}",
+                    "description": "${this._description}",
                     "todoList": []
                 }`;
         let parsedJson = JSON.parse(jsonString);
@@ -31,27 +31,27 @@ class Project {
     }
     
     get id() {
-        return this.id;
+        return this._id;
     }
 
     get name() {
-        return this.name;
+        return this._name;
     }
 
     set name(value) {
-        this.name = value;
+        this._name = value;
     }
 
     get description() {
-        return this.description;
+        return this._description;
     }
 
     set description(value) {
-        this.description = value;
+        this._description = value;
     }
 
     get todoList() {
-        return this.todoList;
+        return this._todoList;
     }
 }
 

@@ -1,81 +1,69 @@
-// Please complete the TodoItem class and its properties
-// Should generate a random id when created
-
 import { isThisSecond } from "date-fns";
 
 class TodoItem {
-    constructor(id, name, title, description, dueDate, priority, notes) {
-        this.id = id;
-        this.name = name;
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.notes = notes;
+    constructor(id, title, description, dueDate, priority, notes) {
+        this._id = id;
+        this._title = title;
+        this._description = description;
+        this._dueDate = dueDate;
+        this._priority = priority;
+        this._notes = notes;
     }
 
     toJson() {
         let jsonString = `
                 {
-                    "title": "${this.title}",
-                    "description": "${this.description}",
-                    "dueDate": "${this.dueDate}",
-                    "priority": "${this.priority}",
-                    "notes": "${this.notes}"
+                    "title": "${this._title}",
+                    "description": "${this._description}",
+                    "dueDate": "${this._dueDate}",
+                    "priority": "${this._priority}",
+                    "notes": "${this._notes}"
                  }`
         return JSON.parse(jsonString);
     }
     
     get id() {
-        return this.id;
-    }
-
-    get name() {
-        return this.name;
-    }
-    
-    set name(value) {
-        this.name = value;
+        return this._id;
     }
 
     get title() {
-        return this.title;
+        return this._title;
     }
-
+    
     set title(value) {
-        this.title = value;
+        this._title = value;
     }
 
     get description() {
-        return this.description;
+        return this._description;
     }
 
     set description(value) {
-        this.description = value;
+        this._description = value;
     }
 
     get dueDate() {
-        return this.dueDate;
+        return this._dueDate;
     }
 
     set dueDate(value) {
-        this.dueDate = value;
+        this._dueDate = value;
     }
 
     get priority() {
-        return this.priority;
+        return this._priority;
     }
 
     set priority(value) {
-        this.priority = value;
+        this._priority = value;
     }
 
     get notes() {
-        return this.notes;
+        return this._notes;
     }
 
     set notes(value) {
-        this.notes = value;
+        this._notes = value;
     }
 }
 

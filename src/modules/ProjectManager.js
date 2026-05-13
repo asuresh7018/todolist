@@ -24,7 +24,6 @@ const ProjectManager = (() => {
         return projects;
     }
 
-    // projectData - JSON String of project data obtained from storage
     const initProjectObject = () => {
         const projectJson = JSON.parse(projectStorage.get("Data")[1]);
         if (JSON.stringify(projectJson) !== "[]") {
