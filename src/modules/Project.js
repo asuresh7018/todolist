@@ -9,11 +9,11 @@ class Project {
     }
 
     removeTodoById(id) {
-        this.todoList = this.todoList.filter(todoItem => todoItem.id !== id);
+        this._todoList = this._todoList.filter(todoItem => todoItem.id !== id);
     }
 
     addTodoItem(todoItem) {
-        this.todoList.push(todoItem);
+        this._todoList.push(todoItem);
     }
 
     toJson() {
@@ -24,7 +24,7 @@ class Project {
                     "todoList": []
                 }`;
         let parsedJson = JSON.parse(jsonString);
-        for (const todoItem of this.todoList) {
+        for (const todoItem of this._todoList) {
             parsedJson["todoList"].push(todoItem.toJson());
         }
         return parsedJson;

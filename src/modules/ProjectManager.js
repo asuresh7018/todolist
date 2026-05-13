@@ -1,4 +1,7 @@
 import LocalStorage from "localstorage";
+import Project from "../modules/Project.js";
+import TodoItem from "../modules/TodoItem.js";
+import { parse } from "date-fns";
 
 // BIG TODO: Project array should actually be an array of Project objects
 
@@ -14,7 +17,7 @@ import LocalStorage from "localstorage";
 // DeleteTodoById: Delete a todo item by id
 const ProjectManager = (() => {
     const projectStorage = new LocalStorage("projectList");
-    let projects = []; // This represents the internal array of project data
+    let projects = JSON.parse("[]"); // This represents the internal array of project data
 
     const getProjectStorage = function() {
         return projectStorage;
@@ -28,29 +31,23 @@ const ProjectManager = (() => {
         const projectJson = JSON.parse(projectStorage.get("Data")[1]);
         if (JSON.stringify(projectJson) !== "[]") {
             for (const project of projectJson["projects"]) {
-                projects.push({
-                    "id": crypto.randomUUID(),
-                    "name": project["name"], 
-                    "description": project["description"],
-                    "todoList": (JSON.stringify(project["todoList"]) === undefined ? [] : createTodoArray(project["todoList"]))
-                })
+                const proj = new Project(crypto.randomUUID(), project["name"], project["description"]);
+                if (JSON.stringify(project["todoList"]) !== undefined) {
+                    for (const todo of project["todoList"]) {
+                        proj.addTodoItem(
+                            new TodoItem(
+                                crypto.randomUUID(),
+                                todo["title"],
+                                todo["description"],
+                                todo["dueDate"],
+                                todo["priority"],
+                                todo["notes"]
+                            ));
+                    }
+                }
+                projects.push(proj);
             }
         }
-    }
-
-    const createTodoArray = (todoJson) => {
-        const returnValue = [];
-        for (const todo of todoJson) {
-        returnValue.push({
-            "id": crypto.randomUUID(),
-            "title": todo["title"], 
-            "description": todo["description"],
-            "dueDate": todo["dueDate"],
-            "priority": todo["priority"],
-            "notes": todo["notes"]})
-        }
-        
-        return returnValue;
     }
 
     const initStorage = () => {
@@ -78,7 +75,11 @@ const ProjectManager = (() => {
     }
 
     const writeToStorage = () => {
-        projectStorage.put("Data", `{"projects": [${JSON.stringify(projects)}]}`);
+        let parsedJson = JSON.parse(`{"projects": []}`);
+        for (const project of projects) {
+            parsedJson["projects"].push(project.toJson());
+        }
+        projectStorage.put("Data", JSON.stringify(parsedJson));
     }
 
     const addTodoToProjectById = (id, todoItem) => {
@@ -92,14 +93,18 @@ const ProjectManager = (() => {
     }
 
     const deleteProjectById = (id) => {
-        projects = projects.filter(project => project["id"] !== id);
+        projects = projects.filter(project => project.id !== id);
         writeToStorage();
     }
 
     const deleteTodoById = (projectId, id) => {
+        
         for (const project of projects) {
-            if (project["id"] === projectId) {
-                project["todoList"] = project["todoList"].filter(todoItem => todoItem["id"] !== id);
+            console.log(project.id);
+            console.log(id);
+            if (project.id === projectId) {
+                console.log("Func");
+                project.removeTodoById(id);
             }
         }
         writeToStorage();
