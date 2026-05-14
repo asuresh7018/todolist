@@ -19,7 +19,7 @@ guiHandler.displayProjectsInHTML();
 // Next todos:
 // Convert ProjectManager project object to a GUI
    // Show all projects (Not necessary, but optional to implement addition/deletion of projects)
-   // Show condensed todos under a project (Name/description/duedate, color based on priority, order by duedate and priority?)
+   // Show condensed todos under a project (Name/description/duedate, color based on priority)
    // Make todos expandable and editable
    // Delete a todo
 // Allow gui elements to call functions on objects

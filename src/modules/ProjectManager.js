@@ -60,8 +60,8 @@ const ProjectManager = (() => {
                         {
                         "title": "Sample Todo",
                         "description": "Description Sample",
-                        "dueDate": "Sample due date",
-                        "priority": "Sample priority",
+                        "dueDate": "01/01/1900",
+                        "priority": "Medium",
                         "notes": "Sample notes"
                         }
                     ]

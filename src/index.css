@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    white-space: nowrap;
 }
 
 :root {
@@ -55,6 +56,9 @@ body {
 
 #sidebarProjects {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .project {
@@ -67,6 +71,7 @@ body {
     border: 2px solid black;
     background-color: rgb(245,245,245);
     transition: background-color 0.5s;
+    border-radius: 10px;
 }
 
 .project:hover {
@@ -80,13 +85,11 @@ body {
 
 .projectTitle {
     font-weight: bold;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .projectDescription {
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-style: italic;
@@ -95,9 +98,83 @@ body {
 #content {
     grid-area: 2 / 2 / 3 / 3;
     background-color: rgb(245,245,245);
+    display: flex;
+    flex-direction: column;
+    grid-template-rows: 50px 1fr;
+    align-items: center;
+    width: 100%;
+}
+
+#contentHeader {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#contentTodoContainer {
+    margin: 40px;
+    width: 80%;
+    min-height: 400px;
+    border: 2px solid black;
 }
 
 #footer {
     grid-area: 3 / 1 / 4 / span 2;
     background-color: rgb(0,100,50);
+}
+
+.todo {
+    min-height: 40px;
+    margin: 5px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.todoHeading {
+    display: grid;
+    grid-template: 20px 20px / 1fr 100px 30px;
+    align-items: center;
+    border-bottom: 2px solid black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.todoTitle {
+    grid-area: 1 / 1 / 2 / 2;
+    font-weight: bold;
+}
+
+.todoDescription {
+    grid-area: 2 / 1 / 3 / 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-style: italic;
+}
+
+.todoDueDate {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.todoExpandDiv {
+    grid-area: 1 / 3 / 3 / span 2;
+    height: 40px;
+    display: grid;
+    align-items: center;
+}
+
+button {
+    background-color: rgb(255,250,230);
+    height: 30px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: rgb(230,230,200);
+}
+
+button:active {
+    background-color: rgb(255,200,200);
 }
