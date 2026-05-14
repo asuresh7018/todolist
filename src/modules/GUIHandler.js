@@ -46,9 +46,9 @@ class GUIHandler {
                     <div class="todoTitle">${todo.title}</div>
                     <div class="todoDescription">${todo.description}</div>
                     <div class="todoDueDate">${todo.dueDate}</div>
-                    <div class="todoExpandDiv"><button class="expandTodo">+</button></div>
+                    <div class="todoExpandDiv"><button class="expandTodo" data-id="${todo.id}">+</button></div>
                 </div>
-                <div class="todoBody">
+                <div class="todoBody detailHidden" data-id="${todo.id}">
                     Stuff that expands.
                 </div>
             </div>`;
@@ -68,7 +68,24 @@ class GUIHandler {
         const todoHTML = this.getTodosAsHTML(projectId);
         const targetDiv = document.querySelector("#contentTodoContainer");
         targetDiv.innerHTML = todoHTML;
+        this.addEventListenerToTodos();
         console.log("Tried to display todos for project " + projectId);
+    }
+
+    addEventListenerToTodos() {
+        const expandButtons = document.querySelectorAll(".expandTodo");
+        for (const button of expandButtons) {
+            button.addEventListener("click", (e) => {
+                const todoBody = document.querySelector(`.todoBody[data-id="${button.dataset["id"]}"]`);
+                todoBody.classList.toggle('detailHidden')
+                if (button.textContent === "+") {
+                    button.textContent = "-"
+                }
+                else {
+                    button.textContent = "+";
+                }
+            });
+        }
     }
 }
 
