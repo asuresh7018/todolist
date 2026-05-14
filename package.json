@@ -4,7 +4,9 @@
   "description": "A small project that demonstrates understanding of project code organisation, documentation, OOP concepts and persistent storage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "dev": "webpack serve",
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",

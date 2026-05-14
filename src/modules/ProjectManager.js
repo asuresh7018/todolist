@@ -1,9 +1,6 @@
 import LocalStorage from "localstorage";
 import Project from "../modules/Project.js";
 import TodoItem from "../modules/TodoItem.js";
-import { parse } from "date-fns";
-
-// BIG TODO: Project array should actually be an array of Project objects
 
 // **The IIFE object that manages the page project data object
 // initStorage: Determine if stored local data exists and create it if not
@@ -11,8 +8,8 @@ import { parse } from "date-fns";
 // initProjectObject: Constructs project object from local storage
 // getProjectObject: Provides copy of current project object
 // writeToStorage: Write current project object to storage
-// AddTodoToProjectById TODO: Add a todolist to a project using the project's id to locate the object
-// AddProject TODO: Add a new project with a new unique id
+// AddTodoToProjectById: Add a todolist to a project using the project's id to locate the object
+// AddProject: Add a new project with a new unique id
 // DeleteProjectById: Delete a project and all its TODOs by id
 // DeleteTodoById: Delete a todo item by id
 const ProjectManager = (() => {
@@ -58,7 +55,7 @@ const ProjectManager = (() => {
             "projects": [
                 {
                     "name": "Default Project",
-                    "description": "Default project description",
+                    "description": "This is the default project.",
                     "todoList": [
                         {
                         "title": "Sample Todo",
@@ -83,13 +80,15 @@ const ProjectManager = (() => {
     }
 
     const addTodoToProjectById = (id, todoItem) => {
-        // Do stuff. TODO
-        // Should accept a TodoItem object
+        for (const project of projects) {
+            if (project.id === projectId) {
+                project.todoList.push(todoItem);
+            }
+        }
     }
 
     const addProject = (project) => {
-        // Do stuff. TODO
-        // Should accept a Project object
+        projects.push(project);
     }
 
     const deleteProjectById = (id) => {
@@ -100,10 +99,7 @@ const ProjectManager = (() => {
     const deleteTodoById = (projectId, id) => {
         
         for (const project of projects) {
-            console.log(project.id);
-            console.log(id);
             if (project.id === projectId) {
-                console.log("Func");
                 project.removeTodoById(id);
             }
         }

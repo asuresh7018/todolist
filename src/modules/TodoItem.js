@@ -1,5 +1,3 @@
-import { isThisSecond } from "date-fns";
-
 class TodoItem {
     constructor(id, title, description, dueDate, priority, notes) {
         this._id = id;
