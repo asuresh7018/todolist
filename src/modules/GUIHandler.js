@@ -42,14 +42,18 @@ class GUIHandler {
 
     convertTodoToHTML(todo) {
         return `<div class="todo">
-                <div class="todoHeading">
+                <div class="todoHeading priority-${todo.priority.toLowerCase()}">
                     <div class="todoTitle">${todo.title}</div>
                     <div class="todoDescription">${todo.description}</div>
                     <div class="todoDueDate">${todo.dueDate}</div>
                     <div class="todoExpandDiv"><button class="expandTodo" data-id="${todo.id}">+</button></div>
                 </div>
                 <div class="todoBody detailHidden" data-id="${todo.id}">
-                    Stuff that expands.
+                    <div class="todoBodyText">${todo.notes}</div>
+                    <div id="todoButtons">
+                    <button class="editTodo" data-id="${todo.id}">Edit</button>
+                    <button class="deleteTodo" data-id="${todo.id}">Delete</button>
+                </div>
                 </div>
             </div>`;
     }
@@ -73,6 +77,7 @@ class GUIHandler {
     }
 
     addEventListenerToTodos() {
+        // Expand buttons
         const expandButtons = document.querySelectorAll(".expandTodo");
         for (const button of expandButtons) {
             button.addEventListener("click", (e) => {
@@ -86,6 +91,10 @@ class GUIHandler {
                 }
             });
         }
+
+        // Edit buttons
+
+        // Delete buttons
     }
 }
 

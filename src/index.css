@@ -143,6 +143,18 @@ body {
     background-color: rgb(240,240,240);
 }
 
+.priority-low {
+    background-color: rgb(200,255,200);
+}
+
+.priority-medium {
+    background-color: rgb(255,255,200);
+}
+
+.priority-high {
+    background-color: rgb(255,200,200);
+}
+
 .todoTitle {
     grid-area: 1 / 1 / 2 / 2;
     font-weight: bold;
@@ -170,8 +182,14 @@ body {
 .todoBody {
     padding: 5px;
     height: auto;
+    max-width: 100%;
     transition: all 0.3s;
-    transition-timing-function: ease;
+    transition-timing-function: ease-out;
+}
+
+.todoBodyText {
+    padding-bottom: 20px;
+    white-space: normal;
 }
 
 .detailHidden {
