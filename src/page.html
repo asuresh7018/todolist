@@ -38,7 +38,7 @@
         <div class="dialogText">Input the new details below.</div>
         <div class="dialogForm">
             <form class="dialogFormForm">
-                <input type="hidden" name="todoId">
+                <input id="hiddenNewId" type="hidden" name="todoId">
                 <label for="title">Title</label>
                 <input type="text"  maxLength="30" name="title" placeholder="Max 30 characters">
                 <label for="description">Description</label>
@@ -66,21 +66,21 @@
         <div class="dialogText">Input the new details below.</div>
         <div class="dialogForm">
             <form class="dialogFormForm">
-                <input type="hidden" name="todoId">
+                <input id="hiddenEditId" type="hidden" name="todoId">
                 <label for="title">Title</label>
-                <input type="text"  maxLength="30" name="title" placeholder="Max 30 characters">
+                <input id ="editTitle" type="text"  maxLength="30" name="title" placeholder="Max 30 characters">
                 <label for="description">Description</label>
-                <input type="text" maxLength="100" name="description" placeholder="Max 100 characters">
+                <input id="editDescription" type="text" maxLength="100" name="description" placeholder="Max 100 characters">
                 <label for="dueDate">Due Date</label>
-                <input type="date" name="dueDate">
+                <input id="editDate" type="date" name="dueDate">
                 <label for="priority">Priority</label>
-                <select name="priority">
+                <select id="editPriority" name="priority">
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
                 </select>
                 <label for="notes">Notes</label>
-                <input type="text" name="notes">
+                <input id="editNotes" type="text" name="notes">
             </form>
         </div>
         <div class="dialogButtons">
@@ -92,6 +92,9 @@
     <dialog class="dialog" id="deleteTodoDialog">
         <div class="dialogTitle">Delete Todo Item</div>
         <div class="dialogText">Are you sure you want to delete this item?</div>
+        <form class="dialogFormForm">
+            <input id="hiddenDeleteId" type="hidden" name="todoId">
+        </form>
         <div class="dialogButtons">
             <button id="deleteTodo">Yes</button>
             <button id="closeDialog">Cancel</button>

@@ -1,6 +1,7 @@
 import LocalStorage from "localstorage";
 import Project from "../modules/Project.js";
 import TodoItem from "../modules/TodoItem.js";
+import { format } from "date-fns";
 
 // **The IIFE object that manages the page project data object
 // initStorage: Determine if stored local data exists and create it if not
@@ -31,12 +32,13 @@ const ProjectManager = (() => {
                 const proj = new Project(crypto.randomUUID(), project["name"], project["description"]);
                 if (JSON.stringify(project["todoList"]) !== undefined) {
                     for (const todo of project["todoList"]) {
+                        const [year, month, day] = todo["dueDate"].split("-");
                         proj.addTodoItem(
                             new TodoItem(
                                 crypto.randomUUID(),
                                 todo["title"],
                                 todo["description"],
-                                todo["dueDate"],
+                                new Date(year, month-1, day),
                                 todo["priority"],
                                 todo["notes"]
                             ));
@@ -60,7 +62,7 @@ const ProjectManager = (() => {
                         {
                         "title": "Sample Todo",
                         "description": "Description Sample",
-                        "dueDate": "01/01/1900",
+                        "dueDate": "1900-01-01",
                         "priority": "Medium",
                         "notes": "According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible. "
                         }
@@ -106,7 +108,27 @@ const ProjectManager = (() => {
         writeToStorage();
     }
 
-    return { initStorage, getProjectStorage, initProjectObject, getProjectObject, writeToStorage, addTodoToProjectById, addProject, deleteProjectById, deleteTodoById };
+    const getTodoById = (id) => {
+        for (const project of projects) {
+            for (const todo of project.todoList) {
+                if (todo.id === id) {
+                    return todo;
+                }
+            } 
+        }
+        return null;
+    }
+
+    const getProjectById = (id) => {
+        for (const project of projects) {
+            if (project.id === id) {
+                return projectStorage;
+            }
+        }
+        return null;
+    }
+
+    return { initStorage, getProjectStorage, initProjectObject, getProjectObject, writeToStorage, addTodoToProjectById, addProject, deleteProjectById, deleteTodoById, getProjectById, getTodoById };
 })();
 
 export default ProjectManager;
