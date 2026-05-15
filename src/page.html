@@ -32,5 +32,70 @@
         </div>
     </div>
     <div id="footer"></div>
+    <!-- New todo dialog -->
+    <dialog class="dialog" id="newTodoDialog">
+        <div class="dialogTitle">New Todo Item</div>
+        <div class="dialogText">Input the new details below.</div>
+        <div class="dialogForm">
+            <form class="dialogFormForm">
+                <input type="hidden" name="todoId">
+                <label for="title">Title</label>
+                <input type="text"  maxLength="30" name="title" placeholder="Max 30 characters">
+                <label for="description">Description</label>
+                <input type="text" maxLength="100" name="description" placeholder="Max 100 characters">
+                <label for="dueDate">Due Date</label>
+                <input type="date" name="dueDate">
+                <label for="priority">Priority</label>
+                <select name="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <label for="notes">Notes</label>
+                <input type="text" name="notes">
+            </form>
+        </div>
+        <div class="dialogButtons">
+            <button id="submitNewTodo">Submit</button>
+            <button id="closeDialog">Cancel</button>
+        </div>
+    </dialog>
+    <!-- Edit todo dialog -->
+    <dialog class="dialog" id="editTodoDialog">
+        <div class="dialogTitle">Edit Todo Item</div>
+        <div class="dialogText">Input the new details below.</div>
+        <div class="dialogForm">
+            <form class="dialogFormForm">
+                <input type="hidden" name="todoId">
+                <label for="title">Title</label>
+                <input type="text"  maxLength="30" name="title" placeholder="Max 30 characters">
+                <label for="description">Description</label>
+                <input type="text" maxLength="100" name="description" placeholder="Max 100 characters">
+                <label for="dueDate">Due Date</label>
+                <input type="date" name="dueDate">
+                <label for="priority">Priority</label>
+                <select name="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <label for="notes">Notes</label>
+                <input type="text" name="notes">
+            </form>
+        </div>
+        <div class="dialogButtons">
+            <button id="editTodo">Submit</button>
+            <button id="closeDialog">Cancel</button>
+        </div>
+    </dialog>
+    <!-- Delete todo dialog -->
+    <dialog class="dialog" id="deleteTodoDialog">
+        <div class="dialogTitle">Delete Todo Item</div>
+        <div class="dialogText">Are you sure you want to delete this item?</div>
+        <div class="dialogButtons">
+            <button id="deleteTodo">Yes</button>
+            <button id="closeDialog">Cancel</button>
+        </div>
+    </dialog>
 </body>
 </html>

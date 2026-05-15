@@ -15,6 +15,7 @@ ProjectManager.initStorage();
 ProjectManager.initProjectObject();
 const guiHandler = new GUIHandler(ProjectManager);
 guiHandler.displayProjectsInHTML();
+guiHandler.addGeneralEventListeners();
 
 // Next todos:
 // Convert ProjectManager project object to a GUI

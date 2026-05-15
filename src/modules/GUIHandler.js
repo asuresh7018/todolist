@@ -29,6 +29,8 @@ class GUIHandler {
                 projects.forEach(x => x.className = "project");
                 this.displayTodosInHTML(project.dataset["id"], project.dataset["name"]);
                 project.className = "project activeProject";
+                const allButtons = document.querySelectorAll("button");
+                allButtons.forEach(x => x.dataset["projectid"] = project.dataset["id"]);
             });
         }
     }
@@ -92,9 +94,20 @@ class GUIHandler {
             });
         }
 
+        // New todo button
+
         // Edit buttons
 
         // Delete buttons
+    }
+
+    addGeneralEventListeners() {
+        // New todo dialog
+        
+
+        // Edit todo dialog
+
+        // Delete todo dialog
     }
 }
 
