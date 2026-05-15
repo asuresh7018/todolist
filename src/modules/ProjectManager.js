@@ -130,7 +130,23 @@ const ProjectManager = (() => {
         return null;
     }
 
-    return { initStorage, getProjectStorage, initProjectObject, getProjectObject, writeToStorage, addTodoToProjectById, addProject, deleteProjectById, deleteTodoById, getProjectById, getTodoById };
+    const updateTodo = (todo) => {
+        for (const project of projects) {
+            for (const todoItem of project.todoList) {
+                if (todo.id === todoItem.id) {
+                    console.log("Updating attributes");
+                    todoItem.title = todo.title;
+                    todoItem.description = todo.description;
+                    todoItem.dueDate = todo.dueDate;
+                    todoItem.priority = todo.priority;
+                    todoItem.notes = todo.notes;
+                }
+            }
+        }
+        writeToStorage();
+    }
+
+    return { initStorage, getProjectStorage, initProjectObject, getProjectObject, writeToStorage, addTodoToProjectById, addProject, deleteProjectById, deleteTodoById, getProjectById, getTodoById, updateTodo };
 })();
 
 export default ProjectManager;

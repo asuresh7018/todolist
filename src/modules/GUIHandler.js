@@ -63,7 +63,6 @@ class GUIHandler {
 
     getTodosAsHTML(projectId) {
         let returnvalue = "";
-        console.log("Gettodosashtml " + projectId);
         let project = this._projectManager.getProjectObject().filter(x => x.id === projectId)[0];
         for (const todo of project.todoList) {
             returnvalue += this.convertTodoToHTML(todo);
@@ -72,13 +71,11 @@ class GUIHandler {
     }
 
     displayTodosInHTML(projectId, projectName) {
-        console.log("DisplayTodosInHtml " + projectId);
         document.querySelector("#contentHeader").textContent = `My Todo List - ${projectName}`;
         const todoHTML = this.getTodosAsHTML(projectId);
         const targetDiv = document.querySelector("#contentTodoContainer");
         targetDiv.innerHTML = todoHTML;
         this.addEventListenerToTodos();
-        console.log("Tried to display todos for project " + projectId);
     }
 
     addEventListenerToTodos() {
@@ -137,8 +134,8 @@ class GUIHandler {
 
         // New todo dialog - Regarding cancelling and submitting form
         // Submit button
-        const submitButton = document.querySelector("#submitNewTodo");
-        submitButton.addEventListener("click", (e) => {
+        const submitButtonNew = document.querySelector("#submitNewTodo");
+        submitButtonNew.addEventListener("click", (e) => {
             const formData = document.querySelector("#newTodoDialog .dialogFormForm");
             const formObject = {
                 "title": formData["title"].value,
@@ -151,7 +148,6 @@ class GUIHandler {
             if (formObject["title"] !== "" && formObject["description"] !== "" && formObject["dueDate"] !== "" & formObject["priority"] != "") {
                 const [year, month, day] = formObject["dueDate"].split("-");
                 const newTodo = new TodoItem(crypto.randomUUID(), formObject["title"], formObject["description"], new Date(year,month-1,day), formObject["priority"], formObject["notes"]);
-                console.log(submitButton.dataset["projectid"])
                 this._projectManager.addTodoToProjectById(submitButton.dataset["projectid"], newTodo);
                 const project = this._projectManager.getProjectById(submitButton.dataset["projectid"]);
                 document.querySelector("#newTodoDialog").close();
@@ -168,6 +164,35 @@ class GUIHandler {
 
         // Edit todo dialog - Regarding cancelling and submitting form
         // Submit button
+        const submitButtonEdit = document.querySelector("#editTodo");
+        submitButtonEdit.addEventListener("click", (e) => {
+            const formData = document.querySelector("#editTodoDialog .dialogFormForm");
+            const formObject = {
+                "id": formData["todoId"].value,
+                "title": formData["title"].value,
+                "description": formData["description"].value,
+                "dueDate": formData["dueDate"].value,
+                "priority": formData["priority"].value,
+                "notes": formData["notes"].value,
+            };
+            const todo = this._projectManager.getTodoById(formObject["id"]);
+            // Validate data
+            if (formObject["title"] !== "" && formObject["description"] !== "" && formObject["dueDate"] !== "" & formObject["priority"] != "") {
+                const [year, month, day] = formObject["dueDate"].split("-");
+                todo.title = formObject["title"];
+                todo.description = formObject["description"];
+                todo.dueDate = new Date(year,month-1,day);
+                todo.priority = formObject["priority"];
+                todo.notes = formObject["notes"];
+                this._projectManager.updateTodo(todo);
+                const project = this._projectManager.getProjectById(submitButtonEdit.dataset["projectid"]);
+                document.querySelector("#editTodoDialog").close();
+                this.displayTodosInHTML(project.id, project.name);
+            }
+            else {
+                console.log("Invalid form data!");
+            }
+        });
         // Cancel button
         document.querySelector("#closeDialogEdit").addEventListener("click", (e) => {
             document.querySelector("#editTodoDialog").close();
