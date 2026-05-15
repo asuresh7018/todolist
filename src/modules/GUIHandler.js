@@ -148,8 +148,8 @@ class GUIHandler {
             if (formObject["title"] !== "" && formObject["description"] !== "" && formObject["dueDate"] !== "" & formObject["priority"] != "") {
                 const [year, month, day] = formObject["dueDate"].split("-");
                 const newTodo = new TodoItem(crypto.randomUUID(), formObject["title"], formObject["description"], new Date(year,month-1,day), formObject["priority"], formObject["notes"]);
-                this._projectManager.addTodoToProjectById(submitButton.dataset["projectid"], newTodo);
-                const project = this._projectManager.getProjectById(submitButton.dataset["projectid"]);
+                this._projectManager.addTodoToProjectById(submitButtonNew.dataset["projectid"], newTodo);
+                const project = this._projectManager.getProjectById(submitButtonNew.dataset["projectid"]);
                 document.querySelector("#newTodoDialog").close();
                 this.displayTodosInHTML(project.id, project.name);
             }
