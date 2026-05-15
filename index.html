@@ -1,1 +1,104 @@
-<head><script defer src="main.js"></script></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+<script defer src="main.js"></script></head>
+<body>
+    <div id="header">
+        <div id="logo">
+            <div class="logoImgContainer">
+                <img class="logoImg"></img>
+            </div>
+            <div id="logoTxt">
+                ToDo App!
+            </div>
+            <div class="logoImgContainer">
+                <img class="logoImg"></img>
+            </div>
+        </div>
+    </div>
+    <div id="sidebar">
+        <div id="sidebarHeader">My Projects</div>
+        <div id="sidebarProjects"></div>
+    </div>
+    <div id="content">
+        <div id="contentHeader">My Todo List</div>
+        <div id="contentButtons">
+            <button id="newTodo">New Item</button>
+        </div>
+        <div id="contentTodoContainer">
+        </div>
+    </div>
+    <div id="footer"></div>
+    <!-- New todo dialog -->
+    <dialog class="dialog" id="newTodoDialog">
+        <div class="dialogTitle">New Todo Item</div>
+        <div class="dialogText">Input the new details below.</div>
+        <div class="dialogForm">
+            <form class="dialogFormForm">
+                <input id="hiddenNewId" type="hidden" name="todoId">
+                <label for="title">*Title</label>
+                <input type="text"  maxLength="30" name="title" placeholder="Max 30 characters">
+                <label for="description">*Description</label>
+                <input type="text" maxLength="100" name="description" placeholder="Max 100 characters">
+                <label for="dueDate">*Due Date</label>
+                <input type="date" name="dueDate">
+                <label for="priority">*Priority</label>
+                <select name="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <label for="notes">Notes</label>
+                <input type="text" name="notes">
+            </form>
+        </div>
+        <div class="dialogButtons">
+            <button id="submitNewTodo">Submit</button>
+            <button id="closeDialogNew">Cancel</button>
+        </div>
+    </dialog>
+    <!-- Edit todo dialog -->
+    <dialog class="dialog" id="editTodoDialog">
+        <div class="dialogTitle">Edit Todo Item</div>
+        <div class="dialogText">Input the new details below.</div>
+        <div class="dialogForm">
+            <form class="dialogFormForm">
+                <input id="hiddenEditId" type="hidden" name="todoId">
+                <label for="title">*Title</label>
+                <input id ="editTitle" type="text"  maxLength="30" name="title" placeholder="Max 30 characters">
+                <label for="description">*Description</label>
+                <input id="editDescription" type="text" maxLength="100" name="description" placeholder="Max 100 characters">
+                <label for="dueDate">*Due Date</label>
+                <input id="editDate" type="date" name="dueDate">
+                <label for="priority">*Priority</label>
+                <select id="editPriority" name="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <label for="notes">Notes</label>
+                <input id="editNotes" type="text" name="notes">
+            </form>
+        </div>
+        <div class="dialogButtons">
+            <button id="editTodo">Submit</button>
+            <button id="closeDialogEdit">Cancel</button>
+        </div>
+    </dialog>
+    <!-- Delete todo dialog -->
+    <dialog class="dialog" id="deleteTodoDialog">
+        <div class="dialogTitle">Delete Todo Item</div>
+        <div class="dialogText">Are you sure you want to delete this item?</div>
+        <form class="dialogFormForm">
+            <input id="hiddenDeleteId" type="hidden" name="todoId">
+        </form>
+        <div class="dialogButtons">
+            <button id="deleteTodo">Yes</button>
+            <button id="closeDialogDelete">Cancel</button>
+        </div>
+    </dialog>
+</body>
+</html>
