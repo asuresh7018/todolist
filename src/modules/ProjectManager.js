@@ -83,14 +83,16 @@ const ProjectManager = (() => {
 
     const addTodoToProjectById = (id, todoItem) => {
         for (const project of projects) {
-            if (project.id === projectId) {
+            if (project.id === id) {
                 project.todoList.push(todoItem);
             }
         }
+        writeToStorage();
     }
 
     const addProject = (project) => {
         projects.push(project);
+        writeToStorage();
     }
 
     const deleteProjectById = (id) => {
@@ -122,7 +124,7 @@ const ProjectManager = (() => {
     const getProjectById = (id) => {
         for (const project of projects) {
             if (project.id === id) {
-                return projectStorage;
+                return project;
             }
         }
         return null;

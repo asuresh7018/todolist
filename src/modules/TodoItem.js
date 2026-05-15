@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 class TodoItem {
     constructor(id, title, description, dueDate, priority, notes) {
         this._id = id;
@@ -13,7 +15,7 @@ class TodoItem {
                 {
                     "title": "${this._title}",
                     "description": "${this._description}",
-                    "dueDate": "${this._dueDate}",
+                    "dueDate": "${format(this._dueDate, "yyyy-MM-dd")}",
                     "priority": "${this._priority}",
                     "notes": "${this._notes}"
                  }`

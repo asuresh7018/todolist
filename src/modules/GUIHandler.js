@@ -48,7 +48,7 @@ class GUIHandler {
                 <div class="todoHeading priority-${todo.priority.toLowerCase()}">
                     <div class="todoTitle">${todo.title}</div>
                     <div class="todoDescription">${todo.description}</div>
-                    <div class="todoDueDate">${format(todo.dueDate, "yyyy/MM/dd")}</div>
+                    <div class="todoDueDate">${format(todo.dueDate, "dd/MM/yyyy")}</div>
                     <div class="todoExpandDiv"><button class="expandTodo" data-id="${todo.id}">+</button></div>
                 </div>
                 <div class="todoBody detailHidden" data-id="${todo.id}">
@@ -63,6 +63,7 @@ class GUIHandler {
 
     getTodosAsHTML(projectId) {
         let returnvalue = "";
+        console.log("Gettodosashtml " + projectId);
         let project = this._projectManager.getProjectObject().filter(x => x.id === projectId)[0];
         for (const todo of project.todoList) {
             returnvalue += this.convertTodoToHTML(todo);
@@ -71,6 +72,7 @@ class GUIHandler {
     }
 
     displayTodosInHTML(projectId, projectName) {
+        console.log("DisplayTodosInHtml " + projectId);
         document.querySelector("#contentHeader").textContent = `My Todo List - ${projectName}`;
         const todoHTML = this.getTodosAsHTML(projectId);
         const targetDiv = document.querySelector("#contentTodoContainer");
@@ -112,10 +114,18 @@ class GUIHandler {
         }
 
         // Delete buttons
+        const deleteButtons = document.querySelectorAll(".deleteTodo");
+        for (const deleteButton of deleteButtons) {
+            deleteButton.addEventListener("click", (e) => {
+                const todo = this._projectManager.getTodoById(deleteButton.dataset["id"]);
+                document.querySelector("#hiddenDeleteId").value = todo.id;
+                document.querySelector("#deleteTodoDialog").showModal();
+            })
+        }
     }
 
     addGeneralEventListeners() {
-        // New todo dialog
+        // New todo button
         const newButton = document.querySelector("#newTodo");
         const newDialog = document.querySelector("#newTodoDialog");
         newButton.addEventListener("click", () => { 
@@ -125,10 +135,50 @@ class GUIHandler {
             }
         });
 
-        // Edit todo dialog - Regarding cancelling and submitting form
+        // New todo dialog - Regarding cancelling and submitting form
+        // Submit button
+        const submitButton = document.querySelector("#submitNewTodo");
+        submitButton.addEventListener("click", (e) => {
+            const formData = document.querySelector("#newTodoDialog .dialogFormForm");
+            const formObject = {
+                "title": formData["title"].value,
+                "description": formData["description"].value,
+                "dueDate": formData["dueDate"].value,
+                "priority": formData["priority"].value,
+                "notes": formData["notes"].value,
+            };
+            // Validate data
+            if (formObject["title"] !== "" && formObject["description"] !== "" && formObject["dueDate"] !== "" & formObject["priority"] != "") {
+                const [year, month, day] = formObject["dueDate"].split("-");
+                const newTodo = new TodoItem(crypto.randomUUID(), formObject["title"], formObject["description"], new Date(year,month-1,day), formObject["priority"], formObject["notes"]);
+                console.log(submitButton.dataset["projectid"])
+                this._projectManager.addTodoToProjectById(submitButton.dataset["projectid"], newTodo);
+                const project = this._projectManager.getProjectById(submitButton.dataset["projectid"]);
+                document.querySelector("#newTodoDialog").close();
+                this.displayTodosInHTML(project.id, project.name);
+            }
+            else {
+                console.log("Invalid form data!");
+            }
+        });
+        // Cancel button
+        document.querySelector("#closeDialogNew").addEventListener("click", (e) => {
+            document.querySelector("#newTodoDialog").close();
+        })
 
+        // Edit todo dialog - Regarding cancelling and submitting form
+        // Submit button
+        // Cancel button
+        document.querySelector("#closeDialogEdit").addEventListener("click", (e) => {
+            document.querySelector("#editTodoDialog").close();
+        })
 
         // Delete todo dialog - Regarding cancelling and submitting form
+        // Delete/Yes button
+        // Cancel button
+        document.querySelector("#closeDialogDelete").addEventListener("click", (e) => {
+            document.querySelector("#deleteTodoDialog").close();
+        })
     }
 }
 
