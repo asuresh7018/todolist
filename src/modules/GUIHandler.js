@@ -200,6 +200,16 @@ class GUIHandler {
 
         // Delete todo dialog - Regarding cancelling and submitting form
         // Delete/Yes button
+        const submitButtonDelete = document.querySelector("#deleteTodo");
+        submitButtonDelete.addEventListener("click", (e) => {
+            const formData = document.querySelector("#deleteTodoDialog .dialogFormForm");
+            const todoId = formData["todoId"].value;
+            const project = this._projectManager.getProjectById(submitButtonDelete.dataset["projectid"]);
+            this._projectManager.deleteTodoById(project.id, todoId);
+            document.querySelector("#deleteTodoDialog").close();
+            this.displayTodosInHTML(project.id, project.name);
+        });
+
         // Cancel button
         document.querySelector("#closeDialogDelete").addEventListener("click", (e) => {
             document.querySelector("#deleteTodoDialog").close();

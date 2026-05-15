@@ -134,12 +134,12 @@ const ProjectManager = (() => {
         for (const project of projects) {
             for (const todoItem of project.todoList) {
                 if (todo.id === todoItem.id) {
-                    console.log("Updating attributes");
                     todoItem.title = todo.title;
                     todoItem.description = todo.description;
                     todoItem.dueDate = todo.dueDate;
                     todoItem.priority = todo.priority;
                     todoItem.notes = todo.notes;
+                    break;
                 }
             }
         }
